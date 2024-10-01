@@ -60,12 +60,12 @@ def network_connect(network, skip_unreachable=False):
 		if(1==len(node.xpath('netconf-node:netconf-connect-params/netconf-node:public-key', namespaces=namespaces))):
 			publickey=node.xpath('netconf-node:netconf-connect-params/netconf-node:public-key', namespaces=namespaces)[0].text
 		else:
-			publickey=None
+			publickey=os.getenv('HOME')+"/.ssh/id_rsa.pub"
 
 		if(1==len(node.xpath('netconf-node:netconf-connect-params/netconf-node:private-key', namespaces=namespaces))):
 			privatekey=node.xpath('netconf-node:netconf-connect-params/netconf-node:private-key', namespaces=namespaces)[0].text
 		else:
-			privatekey=None
+			privatekey=os.getenv('HOME')+"/.ssh/id_rsa"
 
 		print("Connect to " + node_id +" (server=%(server)s user=%(user)s) password=%(password)s ncport=%(ncport)s:" % {'server':server, 'user':user, 'password':password, 'ncport':ncport})
 		conns[node_id] = netconf_session_litenc(host=server,port=int(ncport),username=user,password=password,timeout=100,publickey=publickey,privatekey=privatekey)
@@ -99,8 +99,18 @@ def network_connect_yangrpc(network):
 			password=None
 		ncport = node.xpath('netconf-node:netconf-connect-params/netconf-node:ncport', namespaces=namespaces)[0].text
 
+		if(1==len(node.xpath('netconf-node:netconf-connect-params/netconf-node:public-key', namespaces=namespaces))):
+			publickey=node.xpath('netconf-node:netconf-connect-params/netconf-node:public-key', namespaces=namespaces)[0].text
+		else:
+			publickey=os.getenv('HOME')+"/.ssh/id_rsa.pub"
+
+		if(1==len(node.xpath('netconf-node:netconf-connect-params/netconf-node:private-key', namespaces=namespaces))):
+			privatekey=node.xpath('netconf-node:netconf-connect-params/netconf-node:private-key', namespaces=namespaces)[0].text
+		else:
+			privatekey=os.getenv('HOME')+"/.ssh/id_rsa"
+
 		print("Connect to YANG device " + node_id +" (server=%(server)s user=%(user)s) password=%(password)s ncport=%(ncport)s:" % {'server':server, 'user':user, 'password':password, 'ncport':ncport})
-		yconns[node_id] = yangrpc.connect(server, int(ncport), user, password, os.getenv('HOME')+"/.ssh/id_rsa.pub", os.getenv('HOME')+"/.ssh/id_rsa", "--dump-session=nc-session-%s-" % (node_id))
+		yconns[node_id] = yangrpc.connect(server, int(ncport), user, password, publickey, privatekey, "--dump-session=nc-session-%s-" % (node_id))
 
 		if yconns[node_id] == None:
 			print("FAILED connect")
