@@ -38,7 +38,17 @@ class litenc:
         key = self.t.get_remote_server_key()
 
         if(password==None):
-            self.t.auth_publickey(user, paramiko.RSAKey.from_private_key_file(private_key))
+            _key = None
+            for key_class in (paramiko.RSAKey, paramiko.DSSKey, paramiko.ECDSAKey, paramiko.Ed25519Key):
+                try:
+                    _key = key_class.from_private_key_file(private_key)
+                    break
+                except Exception as e:
+                    pass
+            if _key is not None:
+                self.t.auth_publickey(user, _key)
+            else:
+                raise Exception("Invalid private key: " + str(private_key))
         else:
             self.t.auth_password(user, password)
 

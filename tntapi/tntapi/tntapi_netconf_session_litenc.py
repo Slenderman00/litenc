@@ -11,13 +11,13 @@ class tntapi_netconf_session_litenc_class:
 	def __init__(self):
 		return
 
-	def connect(self, host="localhost",port=830,username="root",password=None,timeout=100):
+	def connect(self, host="localhost",port=830,username="root",password=None,timeout=100,private_key=None,public_key=None):
 		conn = litenc()
 		if(password==None):
 			password_str=""
 		else:
 			password_str="password="+password
-		ret = conn.connect(server=host, port=port, user=username, password=password, timeout=timeout)
+		ret = conn.connect(server=host, port=port, user=username, password=password, timeout=timeout, private_key=private_key, public_key=public_key)
 		if ret != 0:
 			print("[FAILED] Connecting to server=%(server)s:" % {'server':host})
 			return None
@@ -61,9 +61,9 @@ class tntapi_netconf_session_litenc_class:
 	def close(self):
 		self.litenc_session.close()
 
-def netconf_session_litenc(host="localhost",port=830,username="root",password="blah",timeout=100):
+def netconf_session_litenc(host="localhost",port=830,username="root",password="blah",timeout=100,publickey=None,privatekey=None):
 	x=tntapi_netconf_session_litenc_class()
-	res=x.connect(host,port,username,password,timeout)
+	res=x.connect(host,port,username,password,timeout,privatekey,publickey)
 	if(res==0):
 		return x
 	else:

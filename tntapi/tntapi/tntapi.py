@@ -57,8 +57,19 @@ def network_connect(network, skip_unreachable=False):
 			password=None
 		ncport = node.xpath('netconf-node:netconf-connect-params/netconf-node:ncport', namespaces=namespaces)[0].text
 
+		if(1==len(node.xpath('netconf-node:netconf-connect-params/netconf-node:public-key', namespaces=namespaces))):
+			publickey=node.xpath('netconf-node:netconf-connect-params/netconf-node:public-key', namespaces=namespaces)[0].text
+		else:
+			publickey=None
+
+		if(1==len(node.xpath('netconf-node:netconf-connect-params/netconf-node:private-key', namespaces=namespaces))):
+			privatekey=node.xpath('netconf-node:netconf-connect-params/netconf-node:private-key', namespaces=namespaces)[0].text
+		else:
+			privatekey=None
+
 		print("Connect to " + node_id +" (server=%(server)s user=%(user)s) password=%(password)s ncport=%(ncport)s:" % {'server':server, 'user':user, 'password':password, 'ncport':ncport})
-		conns[node_id] = netconf_session_litenc(host=server,port=int(ncport),username=user,password=password,timeout=100)
+		conns[node_id] = netconf_session_litenc(host=server,port=int(ncport),username=user,password=password,timeout=100,publickey=publickey,privatekey=privatekey)
+
 
 		if conns[node_id] == None:
 			print("FAILED connect")
