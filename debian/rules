@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-export PYBUILD_NAME=litenc
+export PYBUILD_NAME=tntapi
 export LC_ALL=C.UTF-8
 
 %:

@@ -1,34 +1,55 @@
-litenc (1.8) UNRELEASED; urgency=medium
-
-  * 
-
- -- Vladimir Vassilev <vladimir@lightside-instruments.com>  Wed, 07 Dec 2022 16:08:08 +0100
-
-litenc (1.7) stable; urgency=medium
+tntapi (1.7) stable; urgency=medium
 
   * Transition to python3
+  * Added skip_unreachable parameter to tntapi.network_connect
 
  -- Vladimir Vassilev <vladimir@lightside-instruments.com>  Wed, 07 Dec 2022 16:08:08 +0100
 
-python-litenc (1.4) UNRELEASED; urgency=medium
+python-tntapi (1.6) UNRELEASED; urgency=medium
 
-  * Fixed litenc_lxml 'module' object has no attribute 'strip_namespaces' error
+  * Added flow visualization to traffic-graphic
+  * Added tntapi.yangcli function and usage example
+  * Added get_datetime_delta returning elapsed period in float seconds
+    based on /system-state/clock/current-datetime
+  * Added tntapi-traffic-graphic-flows.yang with global properties for
+    graphic representation of flows - color for now
+  * Implemented flow color specification support in
+    examples/traffic-graphic according to tntapi-traffic-graphic-flows.yang
+  * Fixed bug in tntapi-netconf-node.yang contradicting
+    the description statement intent to have <nc:filter> node
+  * Added yangcli_ok_script multiple yangcli command lines batch
+  * Added example script validating network interconnect tester
 
- -- Vladimir Vassilev <vladimir@transpacket.com>  Wed, 02 Jan 2019 17:47:40 +0100
+ -- Vladimir Vassilev <vladimir@lightside-instruments.com>  Thu, 12 Dec 2019 16:09:13 +0100
 
-python-litenc (1.3) stable; urgency=medium
+python-tntapi (1.5) stable; urgency=medium
 
-  * Removed default namespace stripping in litenc_lxml
+  * Added netconf-node:netconf-get-filter specifying per node <get> filters
+  * Added example/traffic-graphic command line tool for plotting traffic indicator on SVG background
 
- -- Vladimir Vassilev <vladimir@transpacket.com>  Fri, 31 Aug 2018 16:25:51 +0200
+ -- Vladimir Vassilev <vladimir@transpacket.com>  Sat, 22 Sep 2018 21:58:41 +0200
 
-python-litenc (1.2) stable; urgency=medium
+python-tntapi (1.4) stable; urgency=medium
 
-  * Added yangrpc support in tntapi
+  * Fixed bug in set-net not converting the namespace of netconf-node:config to nc:config resulting in server rejecting the copy-config request.
+
+ -- Vladimir Vassilev <vladimir@transpacket.com>  Sun, 02 Sep 2018 22:06:26 +0200
+
+python-tntapi (1.3) stable; urgency=medium
+
+  * Removed default XML namespace stripping of returned data
+  * Added YANG model of the tntapi:netconf-node specific augments to ietf-network
+  * Added basic examples/tools: set-net, get-net, diff-net, run-net-transactions-sched
+
+ -- Vladimir Vassilev <vladimir@transpacket.com>  Fri, 31 Aug 2018 16:28:45 +0200
+
+python-tntapi (1.2) stable; urgency=medium
+
+  * Added support for yangrpc when available.
 
  -- Vladimir Vassilev <vladimir@transpacket.com>  Fri, 17 Aug 2018 04:09:47 +0200
 
-python-litenc (1.1) stable; urgency=medium
+python-tntapi (1.1) stable; urgency=medium
 
   * Initial release.
 

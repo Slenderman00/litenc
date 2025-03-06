@@ -5,15 +5,14 @@ if sys.version_info < (3,10):
 else:
     from setuptools import setup,Extension
 
-setup(name='litenc',
+setup(name='tntapi',
       version='1.8',
-      description="Lite NETCONF session framer",
+      description="Transactional Network Tools API",
       author="Vladimir Vassilev",
       author_email="vladimir@lightside-instruments.com",
       url="https://github.com/vlvassilev/litenc",
-      packages=["litenc", "litenc_lxml"],
+      packages=["tntapi"],
+      scripts=['example/diff-net', 'example/set-net', 'example/get-net', 'example/run-net-transactions-sched', 'example/traffic-graphic'],
       license="Apache License 2.0",
       platforms=["Posix; OS X; Windows"],
-      #classifiers=[]
-      scripts=['scripts/ncget']
       )
