@@ -12,6 +12,9 @@ setup(name='tntapi',
       author_email="vladimir@lightside-instruments.com",
       url="https://github.com/vlvassilev/litenc",
       packages=["tntapi"],
+      install_requires=[
+          'paramiko'
+      ],
       scripts=['example/diff-net', 'example/set-net', 'example/get-net', 'example/run-net-transactions-sched', 'example/traffic-graphic'],
       license="Apache License 2.0",
       platforms=["Posix; OS X; Windows"],
